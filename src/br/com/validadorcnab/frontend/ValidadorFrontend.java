@@ -31,6 +31,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -42,6 +43,11 @@ import br.com.validadorcnab.interfaces.FrontendInterface;
 import br.com.validadorcnab.model.RegistroInvalidoArquivo;
 import br.com.validadorcnab.validador.ValidarArquivoCNAB;
 
+/**
+ * ValidadorFrontend1 é responsável por
+ * 
+ * @author Wesley.Araujo
+ */
 public class ValidadorFrontend extends JFrame implements ActionListener, FrontendInterface {
 
     private static final long serialVersionUID = -1013814024554465067L;
@@ -60,14 +66,13 @@ public class ValidadorFrontend extends JFrame implements ActionListener, Fronten
     private JTable jTableResultado;
     private JTable jTableArquivos;
 
-    private String localTemp = (System.getProperty("user.home") + System.getProperty("file.separator") + "Desktop");
-    // private String localTemp = ("C:\\CNAB240");
+    private String localTemp = ("C:\\CNAB240");
 
     private HashMap<String, List<RegistroInvalidoArquivo>> listaRegistro;
 
     private final Object selectedColumn = null;
 
-    private final String[] text_header_resultado = { "L", "Ini", "Fim", "Valor Encontrado", "OcorrÃªncia" };
+    private final String[] text_header_resultado = { "L", "Ini", "Fim", "Valor Encontrado", "Ocorrência" };
     private final String[] text_header_arquivo = { "E", "Nome do Arquivo" };
 
     public static void main(String[] args) {
@@ -93,7 +98,7 @@ public class ValidadorFrontend extends JFrame implements ActionListener, Fronten
     public ValidadorFrontend() {
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 1000, 450);
+        setBounds(100, 100, 1010, 460);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         contentPane.setLayout(null);
@@ -121,7 +126,7 @@ public class ValidadorFrontend extends JFrame implements ActionListener, Fronten
     private void panelArquivo() {
 
         JScrollPane scrollPaneArquivos = new JScrollPane();
-        scrollPaneArquivos.setViewportBorder(null);
+        // scrollPaneArquivos.setViewportBorder(null);
         scrollPaneArquivos.setBounds(10, 52, 381, 358);
         contentPane.add(scrollPaneArquivos);
         List<String[]> values = new ArrayList<>();
@@ -173,13 +178,14 @@ public class ValidadorFrontend extends JFrame implements ActionListener, Fronten
 
         JScrollPane scrollPaneResultado = new JScrollPane();
 
-        scrollPaneResultado.setViewportBorder(null);
+        // scrollPaneResultado.setViewportBorder(null);
         scrollPaneResultado.setBounds(401, 52, 583, 358);
         contentPane.add(scrollPaneResultado);
         List<String[]> values = new ArrayList<>();
         TableModel tableModel = new DefaultTableModel(values.toArray(new Object[][] {}), text_header_resultado);
 
         jTableResultado = new JTable(tableModel);
+        jTableResultado.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
         headerArquivo(jTableResultado);
 
         scrollPaneResultado.setViewportView(jTableResultado);
